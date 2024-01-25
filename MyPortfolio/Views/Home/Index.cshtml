@@ -1,13 +1,38 @@
-﻿@model Person
+﻿@model HomeIndexViewModel
 
 @{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Hi, I'm @Model.Name and I'm @Model.Age years old</h1>
-    <h2>I'm a Software developer who mainly develope backend with Java Spring, Rust with Actix and also .Net</h2>
-    <img
-     id="foto"
-     src="~/images/myFoto.jpg" alt="Edwin Profile Image"/>
-</div>
+<partial name="_Introducction" />
+
+<partial name="_Skills" />
+
+@if (Model.Projects is not null)
+{
+	<div class="text-center" style="padding-top: 6rem;">
+		<h1>Recently projects</h1>
+		<p>Here are some of my projects.</p>
+	</div>
+
+	<div class="container">
+		<div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
+			@foreach (var projects in Model.Projects)
+			{
+				<div class="col">
+					<div class="card h-100">
+						<img src="@projects.ImageURL" class="card-img-top" atl="Project image" />
+						<div class="card-body">
+							<h5 class="card-title">@projects.Title</h5>
+							<p class="card-text">@projects.Description</p>
+						</div>
+					</div>
+					<div class="card-footer">
+						<a class="btn btn-primary" href="@projects.Link" target="_blank"
+						   rel="noopener noreferrer">Watch</a>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+}
