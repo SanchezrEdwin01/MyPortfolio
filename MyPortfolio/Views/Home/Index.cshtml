@@ -8,31 +8,4 @@
 
 <partial name="_Skills" />
 
-@if (Model.Projects is not null)
-{
-	<div class="text-center" style="padding-top: 6rem;">
-		<h1>Recently projects</h1>
-		<p>Here are some of my projects.</p>
-	</div>
-
-	<div class="container">
-		<div class="row row-cols-1 row-cols-md-3 g-4 mb-5">
-			@foreach (var projects in Model.Projects)
-			{
-				<div class="col">
-					<div class="card h-100">
-						<img src="@projects.ImageURL" class="card-img-top" atl="Project image" />
-						<div class="card-body">
-							<h5 class="card-title">@projects.Title</h5>
-							<p class="card-text">@projects.Description</p>
-						</div>
-					</div>
-					<div class="card-footer">
-						<a class="btn btn-primary" href="@projects.Link" target="_blank"
-						   rel="noopener noreferrer">Watch</a>
-					</div>
-				</div>
-			}
-		</div>
-	</div>
-}
+<partial name="_ProjectsSecction" model="Model.Projects"/>

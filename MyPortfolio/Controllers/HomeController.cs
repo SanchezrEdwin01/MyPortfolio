@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MyPortfolio.Interfaces;
 using MyPortfolio.Models;
 using System.Diagnostics;
 
@@ -7,51 +8,27 @@ namespace MyPortfolio.Controllers
 	public class HomeController : Controller
 	{
 		private readonly ILogger<HomeController> _logger;
+		private readonly IProjectsRepository projectsRepository;
 
-		public HomeController(ILogger<HomeController> logger)
+		public HomeController(ILogger<HomeController> logger, IProjectsRepository projectsRepository)
 		{
 			_logger = logger;
+
+			_logger.LogCritical("This is a Critical log");
+			_logger.LogError("This is a Error log");
+			_logger.LogWarning("This is a Warning log");
+			_logger.LogInformation("This is a Information log");
+			_logger.LogDebug("This is a Debug log");
+			_logger.LogTrace("This is a Trace log");
+
+			this.projectsRepository = projectsRepository;
 		}
 
 		public IActionResult Index()
 		{
-			var proyects = GetProjectsDTO().Take(3).ToList();
+			var proyects = projectsRepository.GetProjectsDTO().Take(3).ToList();
 			var model = new HomeIndexViewModel() { Projects = proyects };
 			return View(model);
-		}
-
-		private List<ProjectDTO> GetProjectsDTO()
-		{
-			return new List<ProjectDTO>() {
-				new ProjectDTO
-				{
-					Title = "Home",
-					Description = "Home",
-					Link = "https://amazon.com",
-					ImageURL = "/images/imageProject.webp",
-				},
-				new ProjectDTO
-				{
-					Title = "Home",
-					Description = "Home",
-					Link = "https://amazon.com",
-					ImageURL = "/images/imageProject.webp",
-				},
-				new ProjectDTO
-				{
-					Title = "Home",
-					Description = "Home",
-					Link = "https://amazon.com",
-					ImageURL = "/images/imageProject.webp",
-				},
-				new ProjectDTO
-				{
-					Title = "Home",
-					Description = "Home",
-					Link = "https://amazon.com",
-					ImageURL = "/images/imageProject.webp",
-				},
-			};
 		}
 
 		public IActionResult Privacy()
